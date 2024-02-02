@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().disparos++;
         GameObject.Find("GameManager").GetComponent<GameManager>().UpdateDisparos();
+
     }
 
 
@@ -25,5 +26,15 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+            Debug.Log("Enemy");
+        {
+            Destroy(collision.gameObject);
+            GameObject.Find("GameManager").GetComponent<GameManager>().muertes++;
+            GameObject.Find("GameManager").GetComponent<GameManager>().UpdateMuertes();
+        }
+    }
 
 }

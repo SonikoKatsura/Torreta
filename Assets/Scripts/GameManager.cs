@@ -11,10 +11,11 @@ public class GameManager : MonoBehaviour
 
     // Referencias a objetos privados visibles desde el Inspector
     [SerializeField] TextMeshProUGUI textoDisparos;
+    [SerializeField] TextMeshProUGUI textoMuertes;
 
     // Variable pública para modificar desde cualquier script
     public int disparos = 0;
-
+    public int muertes = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
         Cursor.SetCursor(cursorTarget, hotspot, CursorMode.Auto);
         // Actualizamos la información
         UpdateDisparos();
-
+        UpdateMuertes();
     }
 
     // Update is called once per frame
@@ -39,5 +40,10 @@ public class GameManager : MonoBehaviour
         textoDisparos.text = "Disparos: " + disparos;
     }
 
+    public void UpdateMuertes()
+    {
+        // Actualizamos el texto de los enemigos muertos
+        textoMuertes.text = "Enemigos muertos: " + disparos;
+    }
 
 }
