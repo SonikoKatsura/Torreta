@@ -1,49 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.U2D;
+using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
-{
-    // Referencia al sprite que contiene la imagen para el cursor
+public class GameManager : MonoBehaviour {
     [SerializeField] Texture2D cursorTarget;
+    [SerializeField] TextMeshProUGUI shotsText, killsText;
+    [SerializeField] GameObject dialoguesObject;
+    [SerializeField] GameObject HPBar;
 
-    // Referencias a objetos privados visibles desde el Inspector
-    [SerializeField] TextMeshProUGUI textoDisparos;
-    [SerializeField] TextMeshProUGUI textoMuertes;
+    public int shots = 0, kills = 0;
+    bool canShoot = true;
+    public float life = 100, maxLife = 100;
 
-    // Variable pública para modificar desde cualquier script
-    public int disparos = 0;
-    public int muertes = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Configuramos el cursor con el sprite de la mirilla
-        Vector2 hotspot = new Vector2(cursorTarget.width / 2, cursorTarget.height / 2);
+    void Start() {
+        Vector2 hotspot = new Vector2 (cursorTarget.width/2, cursorTarget.height/2);
         Cursor.SetCursor(cursorTarget, hotspot, CursorMode.Auto);
-        // Actualizamos la información
-        UpdateDisparos();
-        UpdateMuertes();
+
+        UpdateShots();
+        UpdateKills();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+    void Update() {
+        HPBar.GetComponent<Image>().fillAmount = life / maxLife;
+
+        if (Input.GetMouseButton(0)) {
+            Vector3 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(clickPos, Vector2.zero);
+
+            if (hit.collider != null) {
+                if (hit.collider.CompareTag("spikeball_item")) {
+                    Debug.Log("¡¡BOLA CON PINCHOS!!");
+                    DisableFire();
+                    Destroy(hit.collider.gameObject);
+                    dialoguesObject.SetActive(true);
+                    dialoguesObject.GetComponent<DialogueController>().StartDialogue("spikedball_item");
+                }
+                if (hit.collider.CompareTag("sawblade_item")) {
+                    Debug.Log("¡¡DISCO DE SIERRA!!");
+                    DisableFire();
+                    Destroy(hit.collider.gameObject);
+                    dialoguesObject.SetActive(true);
+                    dialoguesObject.GetComponent<DialogueController>().StartDialogue("sawblade_item");
+                }
+                if (hit.collider.CompareTag("Enemy")) EnableFire();
+            }else EnableFire();
+        }
     }
 
-    // Método público que actualiza el texto de los disparos
-    public void UpdateDisparos()
-    {
-        // Actualizamos el texto de las balas disparadas
-        textoDisparos.text = "Disparos: " + disparos;
+    public void UpdateShots() {
+        shotsText.text = $"Disparos: {shots}";
     }
 
-    public void UpdateMuertes()
-    {
-        // Actualizamos el texto de los enemigos muertos
-        textoMuertes.text = "Enemigos muertos: " + disparos;
+    public void UpdateKills() {
+        killsText.text = $"Muertes: {kills}";
     }
 
+    public void DisableFire() { canShoot = false; }
+
+    public void EnableFire() { canShoot = true; }
+
+    public bool GetShootingStatus() { return canShoot; }
+
+    public void TakeDamage(int damage) {
+        life = Mathf.Clamp(life - damage, 0, maxLife);
+    }
+
+    public void Heal(int lifeRecovered) {
+        life = Mathf.Clamp(life + lifeRecovered, 0, maxLife);
+    }
 }
