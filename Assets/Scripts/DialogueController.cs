@@ -8,15 +8,6 @@ public class DialogueController : MonoBehaviour {
     [SerializeField] int lineIndex = 0;
     [SerializeField] TextMeshProUGUI dialogueText;
 
-    void Start() {
-        
-    }
-
-
-    void Update() {
-        
-    }
-
     public void StartDialogue(string item) {
         dialogueText.text = "";
 
@@ -31,6 +22,7 @@ public class DialogueController : MonoBehaviour {
 
     public void EndDialogue() {
         gameObject.SetActive(false);
+        StopCoroutine(WriteLine());
     }
 
     IEnumerator WriteLine() {

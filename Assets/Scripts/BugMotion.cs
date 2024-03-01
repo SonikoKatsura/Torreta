@@ -2,12 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 public class BugMotion : MonoBehaviour {
-    [SerializeField] float bugSpeed = 5;
     [SerializeField] float circleAttackRadius = 0.1f, attackDelay = 0.68f;
     [SerializeField] int damageValue = 10;
     [SerializeField] GameObject hitPoint;
     [SerializeField] GameObject target;
     [SerializeField] float detectionDistance = 0.5f, offsetDistance = 0.2f;
+    public float bugSpeed = 1;
     bool executingCoroutine = false;
 
     Rigidbody2D rb;
@@ -65,6 +65,11 @@ public class BugMotion : MonoBehaviour {
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(hitPoint.transform.position, circleAttackRadius);
     }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision != null && collision.collider.CompareTag("Trap")) Destroy(gameObject);
+    }
+
 
     void OnTriggerEnter2D(Collider2D collision) {
         Destroy(gameObject);

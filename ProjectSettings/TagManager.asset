@@ -8,11 +8,16 @@ TagManager:
   - Bala
   - item-spike
   - item-saw
+  - spikeball_item
+  - sawblade_item
+  - Trap
+  - SpikedballTrap
+  - SawTrap
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - DroppedItems
   - Water
   - UI
   - 

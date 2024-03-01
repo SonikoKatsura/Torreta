@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2557878506214106530}
   - component: {fileID: 3475279782752182823}
   - component: {fileID: 7704168490310589990}
-  m_Layer: 0
+  - component: {fileID: -4705234152827610513}
+  m_Layer: 3
   m_Name: item_1
   m_TagString: spikeball_item
   m_Icon: {fileID: 0}
@@ -120,3 +121,15 @@ CircleCollider2D:
   m_Offset: {x: -0.017316282, y: -0.017362058}
   serializedVersion: 2
   m_Radius: 0.2262426
+--- !u!114 &-4705234152827610513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3043561018851646022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ec152737feb141bfe7cae222aa29c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

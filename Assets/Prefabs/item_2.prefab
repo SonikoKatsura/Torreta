@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7527187228391630900}
   - component: {fileID: 7173031215782986269}
   - component: {fileID: 3223914617487657640}
-  m_Layer: 0
+  - component: {fileID: 1509887916735789726}
+  m_Layer: 3
   m_Name: item_2
   m_TagString: sawblade_item
   m_Icon: {fileID: 0}
@@ -120,3 +121,15 @@ CircleCollider2D:
   m_Offset: {x: 0.0019368976, y: -0.002905324}
   serializedVersion: 2
   m_Radius: 0.21250348
+--- !u!114 &1509887916735789726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5840889215158467746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ec152737feb141bfe7cae222aa29c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
