@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI killsText;
     [SerializeField] GameObject dialoguesObject;
     [SerializeField] GameObject HPBar;
+    [SerializeField] GameObject DeathPanel;
 
     [Header("GameBalance")]
     [SerializeField] float reduceSpawnCut = 10;
@@ -40,7 +43,7 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
         HPBar.GetComponent<Image>().fillAmount = life / maxLife;
-
+        StartCoroutine(Death());
         if (Input.GetMouseButton(0)) {
             Vector3 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(clickPos, Vector2.zero);
@@ -97,6 +100,16 @@ public class GameManager : MonoBehaviour {
 
     public void TakeDamage(int damage) {
         life = Mathf.Clamp(life - damage, 0, maxLife);
+    }
+
+    IEnumerator Death()
+    {
+        if (life == 0)
+        {
+            DeathPanel.SetActive(true);
+            yield return new WaitForSeconds(5);
+            SceneManager.LoadScene("Game");
+        }
     }
 
     public void Heal(int lifeRecovered) {

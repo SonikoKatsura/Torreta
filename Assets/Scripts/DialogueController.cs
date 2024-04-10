@@ -14,6 +14,7 @@ public class DialogueController : MonoBehaviour {
         switch (item) {
             case "sawblade_item": lineIndex = 0; break;
             case "spikedball_item": lineIndex = 1; break;
+            case "death": lineIndex = 2; break;
             default: break;
         }
 
